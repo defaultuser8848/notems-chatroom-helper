@@ -1,6 +1,6 @@
 ## about
 一个用来辅助note.ms聊天室的脚本，功能主要有快速编辑消息、下载备份等。
-发送消息需要确保聊天区后的分割行开头为“=（零宽度空格字符）=”动态定位之后可能会实现。 可以前往https://note.ms/chat测试。
+发送消息需要确保聊天区后的分割行开头为“=（零宽度空格字符）=”动态定位之后可能会实现。 可以前往https://note.ms/chat 测试。
 ## links
 - [greasyfork](https://greasyfork.org/zh-CN/scripts/504208)
 ## updates
