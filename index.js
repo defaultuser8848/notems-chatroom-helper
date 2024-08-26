@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Note.ms聊天室辅助
 // @namespace    http://tampermonkey.net/
-// @version      1.1.3
+// @version      1.2.0
 // @description  用于实现基于Note.ms的聊天室的快速消息编辑等辅助功能。
 // @author       Defaultuser6
 // @match        https://note.ms/*
