@@ -54,9 +54,8 @@ async function get_realtime_content()
 function dynamic_update(){
     return get_realtime_content().then(function(tmp){document.getElementsByClassName("content")[0].value=tmp});
 }
-function openmenu(){
-    var toolsource=`<html><head><title>聊天室工具</title><script>setInterval(()=>{if(!window.opener)window.close();},500)</script><meta http-equiv="Content-Type"content="text/html;charset=utf-8"/></head><body><div style="outline: 1px dashed gray;"><h3><center>信息编辑器</center></h3><label>昵称</label><input id="nickname"><br><br><label>内容</label><textarea id="content"style="width:80%;height:100px;"></textarea><br><br><button id="submit">发送！</button></div><div><a id="disable"href="javascript:void(0)">禁用聊天室功能</a><br><a id="download"href="javascript:void(0)">下载页面备份</a><br><a id="update" href="javascript:void(0)">更新实时页面内容</a><br><a id="clear" href="javascript:void(0)">清除本工具全部数据（不可撤销）</a></div></body></html>`
-
+async function openmenu(){
+    var toolsource=await fetch("https://notems-chatroom-helper.pages.dev/tools.html").then((r)=>r.text());
     var win=window.open("about:blank","",
                         `popup=yes,width=600,height=400`);
     win.document.write(toolsource);
