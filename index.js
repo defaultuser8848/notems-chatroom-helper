@@ -5,9 +5,13 @@
 // @description  用于实现基于Note.ms的聊天室的快速消息编辑等辅助功能。
 // @author       Defaultuser6
 // @match        https://note.ms/*
+// @match        https://note.re/*
+// @match        https://note.ect.fyi/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        none
 // @license      Mozilla
+// @downloadURL https://update.greasyfork.org/scripts/504208/Notems%E8%81%8A%E5%A4%A9%E5%AE%A4%E8%BE%85%E5%8A%A9.user.js
+// @updateURL https://update.greasyfork.org/scripts/504208/Notems%E8%81%8A%E5%A4%A9%E5%AE%A4%E8%BE%85%E5%8A%A9.meta.js
 // ==/UserScript==
  
 function safereload()
@@ -30,10 +34,15 @@ function enable(){
     localStorage.setItem("chatroomhelper-chatrooms",JSON.stringify(lst));
     safereload();
 }
+function _fmt_num(x)
+{
+    if(x<10)return "0"+x;
+    return ""+x;
+}
 function get_format_time()
 {
     var now=new Date();
-    return `${now.getFullYear()}/${now.getMonth()}/${now.getDate()} ${now.getHours()}:${now.getMinutes()}`;
+    return `${now.getFullYear()}/${_fmt_num(now.getMonth()+1)}/${_fmt_num(now.getDate())} ${_fmt_num(now.getHours())}:${_fmt_num(now.getMinutes())}`;
 }
 async function get_realtime_content()
 {
