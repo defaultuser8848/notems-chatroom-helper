@@ -1,21 +1,25 @@
 // ==UserScript==
 // @name         Note.ms聊天室辅助
 // @namespace    http://tampermonkey.net/
-// @version      1.1.3
+// @version      1.2.1
 // @description  用于实现基于Note.ms的聊天室的快速消息编辑等辅助功能。
 // @author       Defaultuser6
 // @match        https://note.ms/*
+// @match        https://note.re/*
+// @match        https://note.ect.fyi/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        none
 // @license      Mozilla
+// @downloadURL https://update.greasyfork.org/scripts/504208/Notems%E8%81%8A%E5%A4%A9%E5%AE%A4%E8%BE%85%E5%8A%A9.user.js
+// @updateURL https://update.greasyfork.org/scripts/504208/Notems%E8%81%8A%E5%A4%A9%E5%AE%A4%E8%BE%85%E5%8A%A9.meta.js
 // ==/UserScript==
- 
+
 function safereload()
 {
     document.write("正在刷新...");
     location.reload();
 }
- 
+
 function firstrun()
 {
     localStorage.setItem("chatroomhelper-chatrooms","[]");
@@ -30,10 +34,15 @@ function enable(){
     localStorage.setItem("chatroomhelper-chatrooms",JSON.stringify(lst));
     safereload();
 }
+function _fmt_num(x)
+{
+    if(x<10)return "0"+x;
+    return ""+x;
+}
 function get_format_time()
 {
     var now=new Date();
-    return `${now.getFullYear()}/${now.getMonth()}/${now.getDate()} ${now.getHours()}:${now.getMinutes()}`;
+    return `${now.getFullYear()}/${_fmt_num(now.getMonth()+1)}/${_fmt_num(now.getDate())} ${_fmt_num(now.getHours())}:${_fmt_num(now.getMinutes())}`;
 }
 async function get_realtime_content()
 {
@@ -47,7 +56,7 @@ function dynamic_update(){
 }
 function openmenu(){
     var toolsource=`<html><head><title>聊天室工具</title><script>setInterval(()=>{if(!window.opener)window.close();},500)</script><meta http-equiv="Content-Type"content="text/html;charset=utf-8"/></head><body><div style="outline: 1px dashed gray;"><h3><center>信息编辑器</center></h3><label>昵称</label><input id="nickname"><br><br><label>内容</label><textarea id="content"style="width:80%;height:100px;"></textarea><br><br><button id="submit">发送！</button></div><div><a id="disable"href="javascript:void(0)">禁用聊天室功能</a><br><a id="download"href="javascript:void(0)">下载页面备份</a><br><a id="update" href="javascript:void(0)">更新实时页面内容</a><br><a id="clear" href="javascript:void(0)">清除本工具全部数据（不可撤销）</a></div></body></html>`
- 
+
     var win=window.open("about:blank","",
                         `popup=yes,width=600,height=400`);
     win.document.write(toolsource);
@@ -90,7 +99,7 @@ function init()
         localStorage.setItem("chatroomhelper-first-run","1");
         firstrun();
     }
-    var parent=document.querySelector("body > div.stack > div.flag");
+    var parent=document.querySelector("div.flag");
     var button=document.createElement("a");
     parent.appendChild(button);
     var name=document.location.pathname.slice(1,100);
@@ -109,7 +118,7 @@ function postmsg()
 {
     if(!localStorage.getItem("chatroomhelper-message-cache"))return;
     var message=localStorage.getItem("chatroomhelper-message-cache");
- 
+
     var content=document.getElementsByClassName("content")[0].value.split("\n");
     var ln=-1;
     for(var i=0;i<content.length;i++)
@@ -126,7 +135,7 @@ function postmsg()
         alert("没有找到定位标识，请手动添加定位标识后重试。");
         return ;
     }
- 
+
     var newcontent=content.slice(0,ln).concat(message.split('\n')).concat(content.slice(ln,100000000)).join('\n');
     document.getElementsByClassName("content")[0].value=newcontent;
     localStorage.setItem("chatroomhelper-message-cache","");
