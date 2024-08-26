@@ -9,7 +9,7 @@
 // @match        https://note.ect.fyi/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        none
-// @license      Mozilla
+// @license      MPL-2.0
 // @downloadURL https://update.greasyfork.org/scripts/504208/Notems%E8%81%8A%E5%A4%A9%E5%AE%A4%E8%BE%85%E5%8A%A9.user.js
 // @updateURL https://update.greasyfork.org/scripts/504208/Notems%E8%81%8A%E5%A4%A9%E5%AE%A4%E8%BE%85%E5%8A%A9.meta.js
 // ==/UserScript==
